@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소중한 너의 생일, 성북동 데이트 초대장 🍁</title>
+  <!-- 감성적인 웹폰트 (고운돋움) 적용 -->
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <!-- 폭죽 효과 라이브러리 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #FDFBF7;
+      --main-color: #C85A32;
+      --sub-color: #E6A15C;
+      --text-color: #3E3630;
+      --card-bg: #FFFFFF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Gowun Dodum', sans-serif;
+      background-color: #EFECE6;
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+    }
+    /* 모바일 화면 컨테이너 */
+    .container {
+      width: 100%;
+      max-width: 460px;
+      background-color: var(--bg-color);
+      min-height: 100vh;
+      box-shadow: 0 0 25px rgba(0,0,0,0.08);
+      padding-bottom: 50px;
+    }
+    /* 상단 헤더 */
+    .header {
+      background: linear-gradient(135deg, #D96B43, #E89954);
+      color: white;
+      padding: 45px 25px 35px;
+      text-align: center;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      box-shadow: 0 4px 15px rgba(200, 90, 50, 0.2);
+    }
+    .header .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .header h1 { font-size: 1.65rem; margin-bottom: 10px; line-height: 1.4; }
+    .header p { font-size: 0.95rem; opacity: 0.95; line-height: 1.5; }
+    
+    /* 안내 배너 */
+    .notice-box {
+      margin: 25px 20px 10px;
+      padding: 15px 18px;
+      background-color: #FFF4E6;
+      border-left: 4px solid var(--main-color);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* 타임라인 디자인 */
+    .timeline {
+      padding: 20px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 36px;
+      top: 30px;
+      bottom: 30px;
+      width: 2px;
+      background: #E2D9D0;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 22px;
+      margin-left: 32px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      border: 1px solid #F2ECE4;
+    }
+    .card::before {
+      content: attr(data-icon);
+      position: absolute;
+      left: -47px;
+      top: 18px;
+      width: 30px;
+      height: 30px;
+      background: var(--bg-color);
+      border: 2px solid var(--main-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      z-index: 1;
+    }
+    .time {
+      color: var(--main-color);
+      font-weight: bold;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    .title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #5C5346;
+    }
+    .choice-box {
+      background: #FAF8F5;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+    .choice-item { margin-bottom: 8px; }
+    .choice-item:last-child { margin-bottom: 0; }
+    .choice-title { font-weight: bold; color: #C85A32; }
+
+    /* 시크릿 이벤트 버튼 */
+    .secret-section {
+      text-align: center;
+      padding: 10px 20px 20px;
+    }
+    .btn-secret {
+      background: linear-gradient(135deg, #C85A32, #E07A5F);
+      color: white;
+      border: none;
+      padding: 16px 28px;
+      border-radius: 30px;
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(200, 90, 50, 0.3);
+      transition: transform 0.2s;
+    }
+    .btn-secret:active { transform: scale(0.96); }
+    
+    #secret-msg {
+      display: none;
+      margin-top: 20px;
+      padding: 22px;
+      background: #FFF9F5;
+      border: 2px dashed var(--main-color);
+      border-radius: 16px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 상단 타이틀 -->
+  <div class="header">
+    <div class="badge">2026. 10. 31 (SAT)</div>
+    <h1>네가 태어난 성북동에서,<br>우리의 가을 생일 데이트 🍁</h1>
+    <p>태어나줘서 고마워!<br>오늘 하루는 공주님처럼 행복한 시간만 보내자 ♥</p>
+  </div>
+
+  <!-- 귀여운 준비물 안내 -->
+  <div class="notice-box">
+    👟 <b>오늘의 드레스 코드 팁!</b><br>
+    성북동에 예쁜 골목이랑 단풍 산책로가 많대! 사진도 예쁘게 찍고 걸을 수 있게 <b>예쁘고 발 편한 신발</b> 신고 만나자 😊
+  </div>
+
+  <!-- 타임라인 시작 -->
+  <div class="timeline">
+    
+    <div class="card" data-icon="🍜">
+      <div class="time">12:00 PM</div>
+      <div class="title">따뜻한 성북동 칼국수 & 전</div>
+      <div class="desc">자기가 먹고 싶다고 했던 성북동 칼국수 맛집 리스트야! 당일에 끌리는 곳으로 골라줘.</div>
+      <div class="choice-box">
+        <div class="choice-item"><span class="choice-title">• 국시집:</span> 60년 전통 노포! 한우 사골 칼국수 + 따뜻한 생선전</div>
+        <div class="choice-item"><span class="choice-title">• 성북동집:</span> 깔끔하고 정갈한 국물 칼국수 + 이북식 왕만두·수육</div>
+        <div class="choice-item"><span class="choice-title">• 하단:</span> 정원이 예쁜 곳! 메밀칼국수 + 바삭한 녹두전</div>
+      </div>
+    </div>
+
+    <div class="card" data-icon="🍂">
+      <div class="time">01:30 PM</div>
+      <div class="title">어릴 적 추억 산책 & 인생샷 타임</div>
+      <div class="desc">배 든든히 채우고 자기가 태어난 동네 구경하기! 단풍이 제일 예쁠 때라 사진도 많이 찍어줄게 📸</div>
+      <div class="choice-box">
+        <div class="choice-item"><span class="choice-title">• 코스 A (길상사):</span> 단풍이 절정인 고즈넉한 숲길 산책</div>
+        <div class="choice-item"><span class="choice-title">• 코스 B (미술관):</span> 간송미술관 or 성북구립미술관 가을 전시 관람</div>
+      </div>
+    </div>
+
+    <div class="card" data-icon="☕">
+      <div class="time">03:30 PM</div>
+      <div class="title">단풍 뷰 or 한옥 감성 카페</div>
+      <div class="desc">산책하고 다리 아플 때쯤 예쁜 카페에서 달콤한 디저트 타임!</div>
+      <div class="choice-box">
+        <div class="choice-item"><span class="choice-title">• 성북동 빵공장:</span> 통창 너머로 단풍이 가득 보이는 베이커리</div>
+        <div class="choice-item"><span class="choice-title">• 수연산방:</span> 고즈넉한 한옥 마당에서 먹는 단호박빙수 & 전통차</div>
+        <div class="choice-item"><span class="choice-title">• 오버스토리:</span> 서울 시내가 한눈에 내려다보이는 루프탑 테라스</div>
+      </div>
+    </div>
+
+    <div class="card" data-icon="🍷">
+      <div class="time">06:00 PM</div>
+      <div class="title">로맨틱한 생일 디너 & 와인</div>
+      <div class="desc">점심엔 맛있는 한식 먹었으니, 저녁엔 생일 주인공답게 분위기 있는 곳에서 맛있는 저녁이랑 와인 한잔하자 🥂</div>
+    </div>
+
+    <div class="card" data-icon="✨">
+      <div class="time">08:00 PM</div>
+      <div class="title">반짝이는 서울 야경과 마무리</div>
+      <div class="desc">북악스카이웨이 팔각정 드라이브나 조명이 켜진 한양도성 성곽길을 걸으면서 오늘 하루 예쁘게 마무리하기!</div>
+    </div>
+
+  </div>
+
+  <!-- 하단 서프라이즈 버튼 (오송 예고) -->
+  <div class="secret-section">
+    <button class="btn-secret" onclick="openSecret()">🎁 생일 주간 특별 쿠폰 확인하기 (클릭!)</button>
+    <div id="secret-msg">
+      🎉 <b>[생일 주간 연장 티켓 당첨!]</b> 🎉<br><br>
+      토요일 데이트가 끝이 아니랍니다!<br>
+      <b>11월 2일(월) 저녁</b>, 오송에서 열심히 공부하는 우리 공주님 자취방으로 케이크 들고 찾아갈게 🎂<br>
+      화요일 아침엔 따뜻한 미역국도 대령하겠습니다! 미리 생일 축하해 사랑해 ♥
+    </div>
+  </div>
+</div>
+
+<script>
+  function openSecret() {
+    const msg = document.getElementById('secret-msg');
+    msg.style.display = 'block';
+    
+    // 화려한 축하 폭죽 효과 실행
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+    
+    // 메시지가 보이도록 부드럽게 스크롤 이동
+    msg.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
