@@ -179,7 +179,7 @@
     .title { font-size: 1.15rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
     .desc { font-size: 0.92rem; line-height: 1.6; color: #5C5346; }
 
-    /* 3. 인터랙티브 선택 박스 & 지도 버튼 */
+    /* 인터랙티브 선택 박스 & 지도 버튼 */
     .choice-guide {
       font-size: 0.8rem; color: #C85A32; margin-top: 12px; margin-bottom: 6px; font-weight: bold;
     }
@@ -233,7 +233,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
     .summary-title { font-weight: bold; color: var(--main-color); margin-bottom: 8px; font-size: 1rem; }
-    #picked-list { font-size: 0.9rem; color: #5C5346; margin-bottom: 12px; line-height: 1.6; }
+    #picked-list { font-size: 0.88rem; color: #5C5346; margin-bottom: 12px; line-height: 1.7; }
     .btn-copy {
       background: #5D4037; color: white; border: none;
       padding: 10px 18px; border-radius: 20px;
@@ -288,7 +288,7 @@
   <!-- 귀여운 준비물 안내 -->
   <div class="notice-box">
     👟 <b>오늘의 드레스 코드 팁!</b><br>
-    성북동 골목길과 밤 성곽길 산책로가 정말 예쁘대! 사진도 남기고 편안하게 걸을 수 있게 <b>예쁘고 발 편한 신발</b> 신고 만나자 😊
+    성북동 골목길과 밤 산책로가 정말 예쁘대! 사진도 남기고 편안하게 걸을 수 있게 <b>예쁘고 발 편한 신발</b> 신고 만나자 😊
   </div>
 
   <!-- 타임라인 시작 -->
@@ -398,11 +398,30 @@
       <a class="map-link" href="https://map.naver.com/p/search/성북동%20문화식당" target="_blank">📍 문화식당 위치 및 메뉴 보기</a>
     </div>
 
-    <!-- 08:00 PM -->
+    <!-- 08:00 PM (선택형 야경 & 밤 산책 코스) -->
     <div class="card" data-icon="🌙">
       <div class="time">08:00 PM</div>
-      <div class="title">달빛 성곽길 야경 산책</div>
-      <div class="desc">기분 좋게 저녁 먹고 손잡고 걷기! 혜화문 데크길에서 은은한 조명이 켜진 한양도성을 따라 낙산공원 전망대까지, 반짝이는 서울 밤풍경 보며 완벽하게 하루 마무리하기 🌃</div>
+      <div class="title">달빛 야경 & 밤 산책</div>
+      <div class="desc">기분 좋게 저녁 먹고 손잡고 걷기! 밤톨이의 오늘 컨디션과 기분에 맞춰 원하는 코스를 골라줘 ✨</div>
+      <div class="choice-guide">👇 식사 후 즐길 밤 산책 코스는?</div>
+
+      <div class="choice-item" onclick="selectChoice('night', '달빛 성곽길 야경 산책', this)">
+        <div class="choice-header">
+          <span class="choice-title">• 코스 A (달빛 성곽길 야경)</span>
+          <span class="pick-badge">🌰 밤톨 Pick!</span>
+        </div>
+        <div>혜화문 데크길에서 은은한 조명이 켜진 한양도성을 따라 낙산공원 전망대까지! 서울의 반짝이는 밤풍경을 담는 낭만 코스 🌃</div>
+        <a class="map-link" href="https://map.naver.com/p/search/낙산공원%20전망대" target="_blank" onclick="event.stopPropagation()">📍 낙산공원 야경 포인트 보기</a>
+      </div>
+
+      <div class="choice-item" onclick="selectChoice('night', '평지 성북천 분수 산책', this)">
+        <div class="choice-header">
+          <span class="choice-title">• 코스 B (평지 성북천 산책)</span>
+          <span class="pick-badge">🌰 밤톨 Pick!</span>
+        </div>
+        <div>다리 아프지 않게 평지길 걷기! 은은한 가로등 불빛과 물소리를 들으며 분수광장 쪽으로 도란도란 걷는 편안한 힐링 코스 🌿</div>
+        <a class="map-link" href="https://map.naver.com/p/search/성북천%20분수광장" target="_blank" onclick="event.stopPropagation()">📍 성북천 분수광장 보기</a>
+      </div>
     </div>
 
   </div>
@@ -410,7 +429,7 @@
   <!-- 밤톨이의 코스 선택 요약 & 카톡 전송용 복사 기능 -->
   <div class="summary-box">
     <div class="summary-title">📋 밤톨이의 오늘 데이트 픽!</div>
-    <div id="picked-list">위 타임라인에서 먹고 싶은 칼국수와 코스를 터치해 골라봐! 😊</div>
+    <div id="picked-list">위 타임라인에서 먹고 싶은 곳과 걷고 싶은 코스를 터치해 골라봐! 😊</div>
     <button class="btn-copy" onclick="copyChoices()">💌 선택한 코스 복사해서 햄톨에게 보내기</button>
   </div>
 
@@ -485,8 +504,8 @@
   setInterval(updateTimer, 1000);
   updateTimer();
 
-  // 5. 밤톨이 코스 선택 기능
-  const choices = { lunch: '미정', walk: '미정', cafe: '미정' };
+  // 5. 밤톨이 코스 선택 기능 (8시 코스 night 추가)
+  const choices = { lunch: '미정', walk: '미정', cafe: '미정', night: '미정' };
 
   function selectChoice(category, name, el) {
     choices[category] = name;
@@ -495,11 +514,12 @@
     el.classList.add('selected');
 
     document.getElementById('picked-list').innerHTML = 
-      `🍜 <b>점심:</b> ${choices.lunch} &nbsp;|&nbsp; 🍂 <b>산책:</b> ${choices.walk} &nbsp;|&nbsp; ☕ <b>카페:</b> ${choices.cafe}`;
+      `🍜 <b>점심:</b> ${choices.lunch} &nbsp;|&nbsp; 🍂 <b>산책:</b> ${choices.walk}<br>` +
+      `☕ <b>카페:</b> ${choices.cafe} &nbsp;|&nbsp; 🌙 <b>밤 산책:</b> ${choices.night}`;
   }
 
   function copyChoices() {
-    const text = `[🌰 밤톨이의 성북동 생일 데이트 픽!]\n• 점심 칼국수: ${choices.lunch}\n• 오후 산책: ${choices.walk}\n• 디저트 카페: ${choices.cafe}\n• 저녁 & 야경: 문화식당 & 달빛 성곽길 ♥`;
+    const text = `[🌰 밤톨이의 성북동 생일 데이트 픽!]\n• 점심 칼국수: ${choices.lunch}\n• 오후 산책: ${choices.walk}\n• 디저트 카페: ${choices.cafe}\n• 저녁: 문화식당\n• 밤 산책: ${choices.night} ♥`;
     navigator.clipboard.writeText(text).then(() => {
       alert("선택한 코스가 복사되었어요! 카카오톡 창에 붙여넣기해서 보내주세요 💌");
     });
